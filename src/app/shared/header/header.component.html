@@ -1,0 +1,38 @@
+<p fxLayout="row">
+    <mat-toolbar>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between">
+            <div fxLayout>
+                <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                    <mat-icon>room</mat-icon>
+                </button>
+                <button mat-button style="color: rgb(9, 138, 9); font-size: 30px;">Easy eat</button>
+            </div>
+            <div fxLayout fxLayoutGap="2%" *ngIf="!this.isMobileContent">
+                <button mat-button>
+                    <span style="color: rgb(9, 138, 9);">Inscrire mon restaurant</span>
+                </button>
+                <button mat-button>
+                    <span style="color: rgb(9, 138, 9);">Aide</span>
+                </button>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</p>
+<div fxLayout="row" fxLayoutAlign="center center" class="search-form-wrap">
+    <form fxLayout class="search-form">
+        <mat-form-field *ngIf="!this.isMobileContent" class="search-form-full-width" appearance="outline">
+            <mat-label>Quoi</mat-label>
+            <input matInput type="search" placeholder="Cuisine, nom de restaurant ...">
+        </mat-form-field>
+        <mat-form-field *ngIf="!this.isMobileContent" class="search-form-full-width" appearance="outline">
+            <mat-label>Où</mat-label>
+            <input matInput placeholder="Paris, Abidjan, ...">
+        </mat-form-field>
+        <mat-form-field *ngIf="this.isMobileContent" class="search-form-full-width" appearance="outline">
+            <mat-label>Quoi</mat-label>
+            <input matInput type="search" placeholder="Cuisine, nom de restaurant ...">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </form>
+    <button *ngIf="!this.isMobileContent" class="search-form-button" mat-button color="primary">search</button>
+</div>
