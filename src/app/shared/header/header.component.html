@@ -1,0 +1,31 @@
+<p fxLayout="row">
+    <mat-toolbar>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between">
+            <div fxLayout>
+                <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                    <mat-icon>room</mat-icon>
+                </button>
+                <button mat-button style="color: rgb(9, 138, 9);">Easy eat</button>
+            </div>
+            <form fxLayout fxLayoutGap="15px" class="example-form">
+                <mat-form-field class="" appearance="legacy">
+                    <mat-label>Quoi</mat-label>
+                    <input matInput placeholder="Cuisine, nom de restaurant ...">
+                </mat-form-field>
+                <mat-form-field class="" appearance="legacy">
+                    <mat-label>Où</mat-label>
+                    <input matInput placeholder="Paris, Abidjan, ...">
+                    <mat-icon matSuffix>room</mat-icon>
+                </mat-form-field>
+            </form>
+            <div fxLayout fxLayoutGap="5px">
+                <button mat-button>
+                    <span style="color: rgb(9, 138, 9);">Inscrire mon restaurant</span>
+                </button>
+                <button mat-button>
+                    <span style="color: rgb(9, 138, 9);">Aide</span>
+                </button>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</p>
