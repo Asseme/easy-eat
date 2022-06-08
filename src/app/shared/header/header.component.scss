@@ -11,8 +11,13 @@
 .search-form {
     min-width: 150px;
     max-width: 1500px;
-    width: 50%;
-    
+    width: 50%; 
+}
+
+.mobile-search-form {
+    min-width: 150px;
+    max-width: 1500px;
+    width: 90%; 
 }
 
 mat-form-field mat-label {
@@ -35,6 +40,15 @@ mat-toolbar {
 
 .search-form-button {
     width: 10%;
+    height: 58px;
+    background-color: rgb(5, 126, 5);
+    color: white;
+    margin-left: 0.5%;
+    margin-bottom: 0;
+}
+
+.mobile-search-form-button {
+    width: 90%;
     height: 58px;
     background-color: rgb(5, 126, 5);
     color: white;

@@ -15,6 +15,9 @@
                     <span style="color: rgb(9, 138, 9);">Aide</span>
                 </button>
             </div>
+            <button mat-icon-button *ngIf="this.isMobileContent && displayMobileSearchForm" (click)="onHideMobileSearchForm()">
+                <mat-icon>close</mat-icon>
+            </button>
         </mat-toolbar-row>
     </mat-toolbar>
 </p>
@@ -28,11 +31,24 @@
             <mat-label>Où</mat-label>
             <input matInput placeholder="Paris, Abidjan, ...">
         </mat-form-field>
-        <mat-form-field *ngIf="this.isMobileContent" class="search-form-full-width" appearance="outline">
+        <mat-form-field *ngIf="this.isMobileContent && !displayMobileSearchForm" class="search-form-full-width" appearance="outline">
             <mat-label>Quoi</mat-label>
-            <input matInput type="search" placeholder="Cuisine, nom de restaurant ...">
+            <input matInput type="search" placeholder="Cuisine, nom de restaurant ..." (click)="onDisplayMobileSearchForm()">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </form>
     <button *ngIf="!this.isMobileContent" class="search-form-button" mat-button color="primary">search</button>
+</div>
+<div *ngIf="displayMobileSearchForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2%" class="mobile-search-form-wrap">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2%" class="mobile-search-form" [formGroup] = "searchForm">
+        <mat-form-field *ngIf="this.isMobileContent" class="search-form-full-width" appearance="outline">
+            <mat-label>Quoi</mat-label>
+            <input formControlName = "restaurant" matInput type="search" placeholder="Cuisine, nom de restaurant ...">
+        </mat-form-field>
+        <mat-form-field *ngIf="this.isMobileContent" class="search-form-full-width" appearance="outline">
+            <mat-label>Où</mat-label>
+            <input formControlName = "location" matInput placeholder="Paris, Abidjan, ...">
+        </mat-form-field>
+    </form>
+    <button *ngIf="this.isMobileContent" class="mobile-search-form-button" mat-button color="primary">search</button>
 </div>

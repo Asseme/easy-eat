@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MediaObserver, MediaChange } from '@angular/flex-layout'
-import { Subscription } from 'rxjs';
+import { MediaChange } from '@angular/flex-layout/core/media-change';
+import { FormGroup } from '@angular/forms';
+import { Subject, Subscription, takeUntil } from 'rxjs';
+import { SharedService } from '../services/shared.service';
+import { HeaderService } from './services/header.service';
 
 @Component({
   selector: 'app-header',
@@ -9,39 +12,55 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  mediaSub: Subscription | undefined;
+  private readonly destroy$: Subject<void> = new Subject();
   activeMediaQuery: string = '';
   isMobileContent: boolean = false;
   isHide: boolean = false;
+  displayMobileSearchForm: boolean = false;
+  searchForm: FormGroup = new FormGroup({});
 
 
-  constructor(private mediaObserver: MediaObserver) { }
+  constructor(private headerService: HeaderService,
+    public sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.loadTemplateContent()
+    this.buildSearchForm();
+    this.initComponentContent();
   }
-  loadTemplateContent() {   
-    this.mediaSub = this.mediaObserver.asObservable().subscribe(
-      change => {
-        this.isMobileContent = false;
-        change.forEach(
-          item => {
-            if(item.mqAlias === 'xs') {
-              this.loadMobileContent();
-            }
-            console.log(item.mqAlias)
-          }
-        )
+
+  private buildSearchForm() {
+    this.searchForm = this.headerService.searchFormBuilder();
+  }
+
+  initComponentContent() {
+    this.sharedService.getMediaObserverAsObservable()
+      .pipe(takeUntil(this.destroy$)).subscribe(
+        change => this.setMobileContentAtTrueFor(change)
+      )
+  }
+
+  setMobileContentAtTrueFor(change: MediaChange[]) {
+    this.isMobileContent = false;
+    change.forEach(
+      (item: { mqAlias: string; }) => {
+        if (item.mqAlias === 'xs') {
+          this.isMobileContent = true;
+        }
       }
     )
   }
 
   ngOnDestroy(): void {
-    this.mediaSub?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
-  
-  loadMobileContent() {
-    this.isMobileContent = true;
+
+  onDisplayMobileSearchForm() {
+    this.displayMobileSearchForm = true;
+  }
+
+  onHideMobileSearchForm() {
+    this.displayMobileSearchForm = false;
   }
 }
 
